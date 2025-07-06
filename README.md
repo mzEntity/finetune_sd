@@ -30,3 +30,20 @@ os.environ["https_proxy"] = "http://127.0.0.1:7890"
 
 **运行sample_other.py，生成60岁以上的图片，验证泛化性**
 
+**upload_model.py可以将你微调的模型上传至huggingface**
+
+使用下面的代码运行你的sd
+```python
+from diffusers import StableDiffusionPipeline
+import torch
+
+pipe = StableDiffusionPipeline.from_pretrained(
+    "username/UTKFace_finetuned_sd",
+    torch_dtype=torch.float16
+).to("cuda")
+
+prompt = "a portrait of the face of a 23-year-old"
+image = pipe(prompt).images[0]
+
+image.save("output.png")
+```
